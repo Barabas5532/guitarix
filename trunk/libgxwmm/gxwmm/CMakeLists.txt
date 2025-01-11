@@ -1,9 +1,5 @@
 project(gxwmm)
 
-find_package(PkgConfig REQUIRED)
-
-pkg_check_modules(GTKMM REQUIRED IMPORTED_TARGET gtkmm-3.0)
-
 list(APPEND SOURCES
      "controlparameter.hg"
      "switch.hg"

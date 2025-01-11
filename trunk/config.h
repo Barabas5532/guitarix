@@ -21,7 +21,7 @@
 /* #undef HAVE_LADSPA_H */
 #define HAVE_LRDF 1
 #define HAVE_LILV 1
-#define ZITA_CONVOLVER_VERSION 4
+#define ZITA_CONVOLVER_VERSION 3
 #define GX_STYLE_DIR "/home/barabas/tmp/guitarix-prefix/share/gx_head/skins"
 #define GX_FACTORY_DIR "/home/barabas/tmp/guitarix-prefix/share/gx_head/factorysettings"
 #define GX_SOUND_DIR "/home/barabas/tmp/guitarix-prefix/share/gx_head/sounds"
