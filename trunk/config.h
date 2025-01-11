@@ -21,7 +21,7 @@
 /* #undef HAVE_LADSPA_H */
 #define HAVE_LRDF 1
 #define HAVE_LILV 1
-#define ZITA_CONVOLVER_VERSION 3
+#define ZITA_CONVOLVER_VERSION 4
 #define GX_STYLE_DIR "/home/barabas/tmp/guitarix-prefix/share/gx_head/skins"
 #define GX_FACTORY_DIR "/home/barabas/tmp/guitarix-prefix/share/gx_head/factorysettings"
 #define GX_SOUND_DIR "/home/barabas/tmp/guitarix-prefix/share/gx_head/sounds"
@@ -40,9 +40,9 @@
 #define HAVE_AVAHI_GOBJECT 1
 #define HAVE_AVAHI_GLIB 1
 #define HAVE_AVAHI_CLIENT 1
-#define HAVE_AVAHI 1
-#define HAVE_BLUEZ 1
-#define HAVE_LIBLO 1
+#define HAVE_AVAHI 0
+#define HAVE_BLUEZ 0
+//#define HAVE_LIBLO 0
 #define HAVE_EIGEN3 1
 #define HAVE_CAIRO 1
 #define HAVE_X11_XLIB_H 1

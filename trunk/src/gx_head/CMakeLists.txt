@@ -11,6 +11,10 @@ pkg_check_modules(lrdf REQUIRED IMPORTED_TARGET lrdf)
 pkg_check_modules(GLIBMM REQUIRED IMPORTED_TARGET glibmm-2.4)
 pkg_check_modules(GIOMM REQUIRED IMPORTED_TARGET giomm-2.4)
 
+# TODO support calling out to gperf like the HAVE_GPERF branch in wscript
+configure_file(engine/jsonrpc_methods-generated.cc jsonrpc_methods.cc COPYONLY)
+configure_file(engine/jsonrpc_methods-generated.h jsonrpc_methods.h COPYONLY)
+
 add_executable(gx_head)
 target_sources(gx_head
     PRIVATE
@@ -64,9 +68,8 @@ target_include_directories(gx_head
     "../NAM/NeuralAmpModelerCore/NAM/"
     "../NAM/NeuralAmpModelerCore/Dependencies/nlohmann"
     "../NAM/NeuralAmpModelerCore/Dependencies/eigen"
-    "../RTNeural/RTNeural/RTNeural/"
-    "../RTNeural/RTNeural/modules/Eigen/"
-    "../RTNeural/RTNeural/modules/json/"
+    # Remove RTNeural includes because just linking to it should be enough
+    "${CMAKE_CURRENT_BINARY_DIR}" # for jsonrpc_methods.{cc,h}
 )
 
 target_link_libraries(gx_head
@@ -80,6 +83,7 @@ target_link_libraries(gx_head
     gx::faust
     gx::gxw
     gx::gxwmm_inc
+    gx::librtneural
     # TODO
     #gx::ZITA_CONVOLVER
     #gx::ZITA_RESAMPLER
@@ -149,4 +153,3 @@ list(APPEND BUILDER_FILES "./builder/midi.glade"
 # avahi
 # bluez
 # pluginlib
-# ./engine/jsonrpc_methods.gperf_tmpl

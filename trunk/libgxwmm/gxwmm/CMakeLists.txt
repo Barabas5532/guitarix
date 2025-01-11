@@ -58,6 +58,7 @@ add_library(gxwmm_inc STATIC)
 add_library(gx::gxwmm_inc ALIAS gxwmm_inc)
 
 target_include_directories(gxwmm_inc PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/..")
+target_include_directories(gxwmm_inc PUBLIC "..")
 target_include_directories(gxwmm_inc PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/private")
 
 target_sources(gxwmm_inc PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/knob.cc")
