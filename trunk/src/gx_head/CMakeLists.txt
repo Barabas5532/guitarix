@@ -71,6 +71,7 @@ target_link_libraries(gx_head
     PkgConfig::GTK3
     PkgConfig::gtkmm
     PkgConfig::lilv-0
+    gx::faust
 )
 
 
