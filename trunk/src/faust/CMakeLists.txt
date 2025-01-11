@@ -184,14 +184,6 @@ LIST(APPEND SOURCES_PLUGIN
     # files. This implementation is the same as the else branch of the
     # `if bld.env['FAUST']` in wscript.
     SET(GDIR  "../faust-generated/")
-    LIST(APPEND ALL_SOURCES
-        "${SOURCES}"
-        "${SOURCES_STATIC}"
-        "${SOURCES_FLOAT}"
-        "${SOURCES_PLUGIN_FLOAT}"
-        "${SOURCES_PLUGIN_DOUBLE}"
-        "${SOURCES_PLUGIN}")
-
     foreach(SOURCE_FILE IN LISTS
             SOURCES
             SOURCES_STATIC

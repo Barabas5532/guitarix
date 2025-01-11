@@ -38,15 +38,28 @@ list(APPEND SOURCES
 )
 
 # TODO support generation from hg files in addition to using pre-generated files
+
+SET(GDIR  "../gxwmm-generated/")
+foreach(SOURCE_FILE IN LISTS SOURCES)
+    string(REPLACE ".hg" ".cc" D "${SOURCE_FILE}")
+    cmake_path(APPEND GDIR "${D}" OUTPUT_VARIABLE S)
+    configure_file("${S}" "${D}" COPYONLY)
+
+    string(REPLACE ".hg" ".h" D "${SOURCE_FILE}")
+    cmake_path(APPEND GDIR "${D}" OUTPUT_VARIABLE S)
+    configure_file("${S}" "${D}" COPYONLY)
+
+    string(REPLACE ".hg" "_p.h" D "${SOURCE_FILE}")
+    cmake_path(APPEND GDIR "private/${D}" OUTPUT_VARIABLE S)
+    configure_file("${S}" "private/${D}" COPYONLY)
+endforeach()
+
 add_library(gxwmm_inc STATIC)
 add_library(gx::gxwmm_inc ALIAS gxwmm_inc)
 
-target_include_directories(gxwmm_inc PUBLIC "../gxwmm-generated")
-target_include_directories(gxwmm_inc PRIVATE "../gxwmm-generated/private")
+target_include_directories(gxwmm_inc PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/..")
+target_include_directories(gxwmm_inc PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/private")
 
-list(APPEND ACTUAL_SOURCES ${SOURCES})
-list(TRANSFORM ACTUAL_SOURCES REPLACE "\.hg" "\.cc")
-list(TRANSFORM ACTUAL_SOURCES PREPEND "../gxwmm-generated/")
-target_sources(gxwmm_inc PRIVATE ${ACTUAL_SOURCES})
+target_sources(gxwmm_inc PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/knob.cc")
 
 target_link_libraries(gxwmm_inc PUBLIC gx::gxw PkgConfig::GTKMM)
