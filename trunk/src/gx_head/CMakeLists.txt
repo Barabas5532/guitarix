@@ -7,6 +7,9 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK3 REQUIRED IMPORTED_TARGET gtk+-3.0)
 pkg_check_modules(gtkmm REQUIRED IMPORTED_TARGET gtkmm-3.0)
 pkg_check_modules(lilv-0 REQUIRED IMPORTED_TARGET lilv-0)
+pkg_check_modules(lrdf REQUIRED IMPORTED_TARGET lrdf)
+pkg_check_modules(GLIBMM REQUIRED IMPORTED_TARGET glibmm-2.4)
+pkg_check_modules(GIOMM REQUIRED IMPORTED_TARGET giomm-2.4)
 
 add_executable(gx_head)
 target_sources(gx_head
@@ -68,12 +71,19 @@ target_include_directories(gx_head
 
 target_link_libraries(gx_head
     PRIVATE
+    PkgConfig::GLIBMM
+    PkgConfig::GIOMM
     PkgConfig::GTK3
     PkgConfig::gtkmm
     PkgConfig::lilv-0
+    PkgConfig::lrdf
     gx::faust
+    gx::gxw
+    gx::gxwmm_inc
+    # TODO
+    #gx::ZITA_CONVOLVER
+    #gx::ZITA_RESAMPLER
 )
-
 
 list(APPEND BUILDER_FILES "./builder/midi.glade"
         "./builder/midi_channel.glade"

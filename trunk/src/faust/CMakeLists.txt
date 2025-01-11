@@ -181,7 +181,8 @@ LIST(APPEND SOURCES_PLUGIN
 
     # TODO
     # Also implement running the dsp2cc script instead of using the pre-built
-    # files
+    # files. This implementation is the same as the else branch of the
+    # `if bld.env['FAUST']` in wscript.
     SET(GDIR  "../faust-generated/")
     LIST(APPEND ALL_SOURCES
         "${SOURCES}"
@@ -213,9 +214,6 @@ LIST(APPEND SOURCES_PLUGIN
         configure_file("${S}" "${D}" COPYONLY)
     endforeach()
 
-    add_library(gx_faust STATIC)
+    add_library(gx_faust INTERFACE)
     add_library(gx::faust ALIAS gx_faust)
-    target_include_directories(gx_faust PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/..")
-    # TODO target_sources with all the generated sources in
-    # CMAKE_CURRENT_BINARY_DIR
-    target_sources(gx_faust PRIVATE  "${CMAKE_CURRENT_BINARY_DIR}/echo.cc")
+    target_include_directories(gx_faust INTERFACE "${CMAKE_CURRENT_BINARY_DIR}/..")
