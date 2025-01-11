@@ -11,6 +11,32 @@ pkg_check_modules(lrdf REQUIRED IMPORTED_TARGET lrdf)
 pkg_check_modules(GLIBMM REQUIRED IMPORTED_TARGET glibmm-2.4)
 pkg_check_modules(GIOMM REQUIRED IMPORTED_TARGET giomm-2.4)
 
+# conf.check_cfg(package='jack', args=['--cflags','--libs','jack >= 1.9.2'], uselib_store='JACK', msg="Checking for 'jackd2'", mandatory=1)
+pkg_check_modules(JACK REQUIRED IMPORTED_TARGET jack)
+
+# conf.check_cfg(package='sndfile', args=conf.env['OS_SNDFILE_CFGFLAGS'], uselib_store='SNDFILE', mandatory=1)
+pkg_check_modules(SNDFILE REQUIRED IMPORTED_TARGET sndfile)
+
+# conf.check_cfg(package='gthread-2.0', args=['--cflags','--libs','gthread-2.0 >= 2.24'], uselib_store='GTHREAD', mandatory=1)
+pkg_check_modules(GTHREAD REQUIRED IMPORTED_TARGET gthread-2.0)
+
+# conf.check_cfg(package='gmodule-export-2.0', args='--cflags --libs', uselib_store='GMODULE_EXPORT', mandatory=1)
+pkg_check_modules(GMODULE_EXPORT REQUIRED IMPORTED_TARGET gmodule-export-2.0)
+
+# conf.check_cfg(package='libcurl', args=['--cflags','--libs','libcurl >= 7.26.0'], uselib_store='CURL', mandatory=1)
+pkg_check_modules(CURL REQUIRED IMPORTED_TARGET libcurl)
+
+# conf.check_cfg(package='fftw3f', args=['--cflags','--libs','fftw3f >= 3.3.8'], uselib_store='FFTW3', mandatory=1)
+pkg_check_modules(FFTW3 REQUIRED IMPORTED_TARGET fftw3f)
+
+# conf.check_cfg(package='lrdf', args='--cflags --libs', uselib_store='LRDF', mandatory=1)
+pkg_check_modules(LRDF REQUIRED IMPORTED_TARGET lrdf)
+
+# conf.check_cxx(msg = msg, fragment=code, lib="boost_system", uselib_store="BOOST_SYSTEM", mandatory=1,includes='/opt/local/include', libpath='/opt/local/lib')
+# conf.check_cxx(msg = msg, fragment=code, lib=["boost_iostreams","boost_system"], uselib_store="BOOST_IOSTREAMS", mandatory=1)
+
+find_package(Boost 1.42 COMPONENTS system iostreams)
+
 # TODO support calling out to gperf like the HAVE_GPERF branch in wscript
 configure_file(engine/jsonrpc_methods-generated.cc jsonrpc_methods.cc COPYONLY)
 configure_file(engine/jsonrpc_methods-generated.h jsonrpc_methods.h COPYONLY)
@@ -74,19 +100,27 @@ target_include_directories(gx_head
 
 target_link_libraries(gx_head
     PRIVATE
-    PkgConfig::GLIBMM
+    PkgConfig::JACK
+                      PkgConfig::SNDFILE
+                      PkgConfig::GTHREAD
+                      PkgConfig::GMODULE_EXPORT
+                      PkgConfig::CURL
+                      PkgConfig::GTK3
+                      PkgConfig::gtkmm
     PkgConfig::GIOMM
-    PkgConfig::GTK3
-    PkgConfig::gtkmm
+                      PkgConfig::FFTW3
+                      PkgConfig::LRDF
     PkgConfig::lilv-0
-    PkgConfig::lrdf
+    Boost::system
+                      Boost::iostreams
+                      # TODO
+                      #gx::ZITA_CONVOLVER
+                      #gx::ZITA_RESAMPLER
     gx::faust
     gx::gxw
     gx::gxwmm_inc
     gx::librtneural
-    # TODO
-    #gx::ZITA_CONVOLVER
-    #gx::ZITA_RESAMPLER
+
 )
 
 list(APPEND BUILDER_FILES "./builder/midi.glade"
