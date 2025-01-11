@@ -40,8 +40,8 @@
 #define HAVE_AVAHI_GOBJECT 1
 #define HAVE_AVAHI_GLIB 1
 #define HAVE_AVAHI_CLIENT 1
-#define HAVE_AVAHI 0
-#define HAVE_BLUEZ 0
+//#define HAVE_AVAHI 0
+//#define HAVE_BLUEZ 0
 //#define HAVE_LIBLO 0
 #define HAVE_EIGEN3 1
 #define HAVE_CAIRO 1

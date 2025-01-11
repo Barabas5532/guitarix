@@ -54,13 +54,24 @@ foreach(SOURCE_FILE IN LISTS SOURCES)
     configure_file("${S}" "private/${D}" COPYONLY)
 endforeach()
 
-add_library(gxwmm_inc STATIC)
-add_library(gx::gxwmm_inc ALIAS gxwmm_inc)
+list(TRANSFORM SOURCES REPLACE "\.hg" ".cc")
+list(TRANSFORM SOURCES PREPEND "${CMAKE_CURRENT_BINARY_DIR}/")
 
-target_include_directories(gxwmm_inc PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/..")
-target_include_directories(gxwmm_inc PUBLIC "..")
-target_include_directories(gxwmm_inc PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/private")
+# add_library(gxwmm_inc INTERFACE)
+# add_library(gx::gxwmm_inc ALIAS gxwmm_inc)
 
-target_sources(gxwmm_inc PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/knob.cc")
+# target_include_directories(gxwmm_inc INTERFACE "${CMAKE_CURRENT_BINARY_DIR}/..")
+# target_include_directories(gxwmm_inc INTERFACE "..")
 
-target_link_libraries(gxwmm_inc PUBLIC gx::gxw PkgConfig::GTKMM)
+# target_link_libraries(gxwmm_inc INTERFACE gx::gxw_inc)
+
+add_library(gxwmm STATIC)
+add_library(gx::gxwmm ALIAS gxwmm)
+
+target_include_directories(gxwmm PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/..")
+target_include_directories(gxwmm PUBLIC "..")
+target_include_directories(gxwmm PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/private")
+
+target_sources(gxwmm PRIVATE ${SOURCES} init.cc ../gxwmm-generated/wrap_init.cc)
+
+target_link_libraries(gxwmm PUBLIC gx::gxw PkgConfig::GTKMM)

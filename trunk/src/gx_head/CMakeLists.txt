@@ -118,7 +118,7 @@ target_link_libraries(gx_head
                       #gx::ZITA_RESAMPLER
     gx::faust
     gx::gxw
-    gx::gxwmm_inc
+    gx::gxwmm
     gx::librtneural
 
 )

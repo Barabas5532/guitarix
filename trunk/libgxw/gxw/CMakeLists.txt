@@ -42,4 +42,3 @@ target_include_directories(gxw PRIVATE ".")
 target_include_directories(gxw PUBLIC "..")
 
 target_link_libraries(gxw PUBLIC PkgConfig::GTK3)
-
