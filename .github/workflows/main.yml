@@ -13,25 +13,25 @@ jobs:
       - name: Install dependencies
         run: >
           apt install -y
-          git
-          python3
-          python-is-python3
-          gettext
-          intltool
           g++
-          pkgconf
-          libsndfile1-dev
-          libfftw3-dev
-          libjack-jackd2-dev
-          libglib2.0-dev
-          libcurl4-gnutls-dev
-          sassc
-          libgtkmm-3.0-dev
-          liblrdf0-dev
-          liblilv-dev
-          libboost-system-dev
+          gettext
+          git
+          intltool
           libboost-iostreams-dev
+          libboost-system-dev
+          libcurl4-gnutls-dev
           libeigen3-dev
+          libfftw3-dev
+          libglib2.0-dev
+          libgtkmm-3.0-dev
+          libjack-jackd2-dev
+          liblilv-dev
+          liblrdf0-dev
+          libsndfile1-dev
+          pkgconf
+          python-is-python3
+          python3
+          sassc
       
       - uses: actions/checkout@v2
         with:
