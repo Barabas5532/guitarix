@@ -23,5 +23,6 @@ jobs:
           
       - name: Build
         run: |
+          cd trunk
           ./waf configure --prefix=/usr --includeresampler --includeconvolver --optimization
           ./waf build
