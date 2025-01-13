@@ -24,7 +24,7 @@ jobs:
           libfftw3-dev
           libjack-jackd2-dev
           libglib2.0-dev
-          libcurl4-openssl-dev
+          libcurl4-gnutls-dev
           sassc
           libgtkmm-3.0-dev
           liblrdf0-dev
