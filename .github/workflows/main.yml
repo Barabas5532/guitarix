@@ -9,20 +9,36 @@ jobs:
     container: debian:bookworm
     steps:
       - run: apt update
-      - run: apt upgrade -y git
-      
-      - uses: actions/checkout@v2
-        with:
-          submodules: recursive
-
       
       - name: Install dependencies
         run: >
           apt install -y
-          build-essential
+          git
+          python3
+          python-is-python3
+          gettext
+          intltool
+          g++
+          pkgconf
+          libsndfile1-dev
+          libfftw3-dev
+          libjack-jackd2-dev
+          libglib2.0-dev
+          libcurl4-openssl-dev
+          sassc
+          libgtkmm-3.0-dev
+          liblrdf0-dev
+          liblilv-dev
+          libboost-system-dev
+          libboost-iostreams-dev
+          libeigen3-dev
+      
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
           
       - name: Build
         run: |
           cd trunk
-          ./waf configure --prefix=/usr --includeresampler --includeconvolver --optimization
+          ./waf configure --prefix=/usr --no-avahi --no-bluez --no-nsm --includeresampler --includeconvolver --optimization
           ./waf build
