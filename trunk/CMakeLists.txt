@@ -70,6 +70,7 @@ target_sources(gx_ZITA_RESAMPLER PRIVATE
 target_compile_options(gx_ZITA_RESAMPLER PRIVATE "-fvisibility=hidden")
 target_link_libraries(gx_ZITA_RESAMPLER PRIVATE Threads::Threads)
 
+add_subdirectory(src/NAM)
 add_subdirectory(src/plugins)
 
 add_subdirectory(libgxw/gxw)
