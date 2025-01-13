@@ -4,15 +4,17 @@ on:
     branches: [ master ]
 
 jobs:
-  build-host:
+  build-standalone:
     runs-on: ubuntu-latest
     container: debian:bookworm
     steps:
+      - run: sudo apt update
+      - run: sudo apt upgrade git
+      
       - uses: actions/checkout@v2
         with:
           submodules: recursive
 
-      - run: sudo apt update
       
       - name: Install dependencies
         run: >
