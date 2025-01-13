@@ -1,6 +1,19 @@
 cmake_minimum_required(VERSION 3.13)
 project(guitarix)
 
+# Global options from cpu_optimization.py
+set(CMAKE_CXX_STANDARD 20)
+
+# FIXME: the NAM and RTNeural specific definitions should be moved to the
+# library specific build files
+add_compile_definitions(
+    DSP_SAMPLE_FLOAT
+    NAM_SAMPLE_FLOAT
+    neural_amp_modeler_EXPORTS
+    RTNEURAL_DEFAULT_ALIGNMENT=32
+    RTNEURAL_USE_EIGEN=1
+)
+
 find_package(PkgConfig REQUIRED)
 
 pkg_check_modules(GTK3 REQUIRED IMPORTED_TARGET gtk+-3.0)
