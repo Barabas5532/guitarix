@@ -97,7 +97,7 @@ target_link_libraries(gx_head
     gx::gxw
     gx::gxwmm
     gx::librtneural
-
+    gx::plugins
 )
 
 list(APPEND BUILDER_FILES "./builder/midi.glade"

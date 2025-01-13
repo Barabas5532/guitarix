@@ -208,4 +208,11 @@ LIST(APPEND SOURCES_PLUGIN
 
     add_library(gx_faust INTERFACE)
     add_library(gx::faust ALIAS gx_faust)
-    target_include_directories(gx_faust INTERFACE "${CMAKE_CURRENT_BINARY_DIR}/..")
+    # FIXME: added current binary dir to includes so that plugins can include
+    # the copied files correctly. Not sure how its' working in waf, because that
+    # build system doesn't do this.
+    #
+    # An any case, it would be better to update both systems and the source code
+    # so that a simple `#include "vibe_lfo_sine.cc"` works, and remove the
+    # GUITARIX_AS_PLUGIN defines changing the includes.
+    target_include_directories(gx_faust INTERFACE "${CMAKE_CURRENT_BINARY_DIR}" "${CMAKE_CURRENT_BINARY_DIR}/..")
