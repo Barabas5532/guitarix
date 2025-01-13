@@ -8,8 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     container: debian:bookworm
     steps:
-      - run: sudo apt update
-      - run: sudo apt upgrade git
+      - run: apt update
+      - run: apt upgrade git
       
       - uses: actions/checkout@v2
         with:
@@ -18,7 +18,7 @@ jobs:
       
       - name: Install dependencies
         run: >
-          sudo apt install
+          apt install
           build-essential
           
       - name: Build
