@@ -68,4 +68,7 @@ target_include_directories(gx_plugins PUBLIC
 )
 
 target_sources(gx_plugins PRIVATE ${LIB_SOURCES} ${LIB_CSOURCES})
-target_link_libraries(gx_plugins PUBLIC PkgConfig::EIGEN3 gx::faust)
+target_link_libraries(gx_plugins PUBLIC
+gx::ZITA_RESAMPLER  # transitive through headers
+PkgConfig::EIGEN3
+gx::faust)
