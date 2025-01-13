@@ -9,7 +9,7 @@ jobs:
     container: debian:bookworm
     steps:
       - run: apt update
-      - run: apt upgrade git
+      - run: apt upgrade -y git
       
       - uses: actions/checkout@v2
         with:
@@ -18,7 +18,7 @@ jobs:
       
       - name: Install dependencies
         run: >
-          apt install
+          apt install -y
           build-essential
           
       - name: Build
