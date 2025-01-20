@@ -157,6 +157,8 @@ list(APPEND BUILDER_FILES "./builder/midi.glade"
         "./builder/gx_fold.png"
         "./builder/gx_fullscreen.png"
     )
+    
+install(FILES ${BUILDER_FILES} DESTINATION share/gx_head/builder)
 
 # TODO
 # guitarix.lds - linker script
