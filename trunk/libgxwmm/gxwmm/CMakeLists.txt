@@ -1,0 +1,73 @@
+project(gxwmm)
+
+list(APPEND SOURCES
+     "controlparameter.hg"
+     "switch.hg"
+     "regler.hg"
+     "knob.hg"
+     "bigknob.hg"
+     "midknob.hg"
+     "smallknob.hg"
+     "smallknobr.hg"
+     "tuner.hg"
+     "racktuner.hg"
+     "fastmeter.hg"
+     "waveview.hg"
+     "selector.hg"
+     "toggleimage.hg"
+     "iredit.hg"
+     "radiobutton.hg"
+     "wheel.hg"
+     "wheelvertical.hg"
+     "hslider.hg"
+     "minislider.hg"
+     "vslider.hg"
+     "eqslider.hg"
+     "levelslider.hg"
+     "paintbox.hg"
+     "meterscale.hg"
+     #"gradient.hg",
+     "valuedisplay.hg"
+     "simplevaluedisplay.hg"
+     "portdisplay.hg"
+     "playhead.hg"
+)
+
+# TODO support generation from hg files in addition to using pre-generated files
+
+SET(GDIR  "../gxwmm-generated/")
+foreach(SOURCE_FILE IN LISTS SOURCES)
+    string(REPLACE ".hg" ".cc" D "${SOURCE_FILE}")
+    cmake_path(APPEND GDIR "${D}" OUTPUT_VARIABLE S)
+    configure_file("${S}" "${D}" COPYONLY)
+
+    string(REPLACE ".hg" ".h" D "${SOURCE_FILE}")
+    cmake_path(APPEND GDIR "${D}" OUTPUT_VARIABLE S)
+    configure_file("${S}" "${D}" COPYONLY)
+
+    string(REPLACE ".hg" "_p.h" D "${SOURCE_FILE}")
+    cmake_path(APPEND GDIR "private/${D}" OUTPUT_VARIABLE S)
+    configure_file("${S}" "private/${D}" COPYONLY)
+endforeach()
+
+list(TRANSFORM SOURCES REPLACE "\.hg" ".cc")
+list(TRANSFORM SOURCES PREPEND "${CMAKE_CURRENT_BINARY_DIR}/")
+
+# add_library(gxwmm_inc INTERFACE)
+# add_library(gx::gxwmm_inc ALIAS gxwmm_inc)
+
+# target_include_directories(gxwmm_inc INTERFACE "${CMAKE_CURRENT_BINARY_DIR}/..")
+# target_include_directories(gxwmm_inc INTERFACE "..")
+
+# target_link_libraries(gxwmm_inc INTERFACE gx::gxw_inc)
+
+add_library(gxwmm STATIC)
+add_library(gx::gxwmm ALIAS gxwmm)
+
+target_include_directories(gxwmm PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/..")
+target_include_directories(gxwmm PUBLIC "..")
+target_include_directories(gxwmm PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/private")
+
+target_sources(gxwmm PRIVATE ${SOURCES} init.cc ../gxwmm-generated/wrap_init.cc)
+
+target_link_libraries(gxwmm PUBLIC gx::gxw PkgConfig::GTKMM)
