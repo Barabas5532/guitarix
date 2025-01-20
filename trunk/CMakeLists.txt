@@ -52,6 +52,17 @@ find_package(Threads REQUIRED)
 # conf.check_cxx(msg = msg, fragment=code, lib=["boost_iostreams","boost_system"], uselib_store="BOOST_IOSTREAMS", mandatory=1)
 find_package(Boost 1.42 COMPONENTS system iostreams)
 
+set(gxsharedir "share/gx_head")
+cmake_path(APPEND gxsharedir skins OUTPUT_VARIABLE GX_STYLE_DIR)
+cmake_path(APPEND gxsharedir factorysettings OUTPUT_VARIABLE GX_FACTORY_DIR)
+cmake_path(APPEND gxsharedir sounds OUTPUT_VARIABLE GX_SOUND_DIR)
+cmake_path(APPEND GX_SOUND_DIR bands OUTPUT_VARIABLE GX_SOUND_BPB_DIR)
+cmake_path(APPEND GX_SOUND_DIR amps OUTPUT_VARIABLE GX_SOUND_BPA_DIR)
+cmake_path(APPEND gxsharedir builder OUTPUT_VARIABLE GX_BUILDER_DIR)
+cmake_path(APPEND gxsharedir guitarix icons OUTPUT_VARIABLE GX_ICON_DIR)
+cmake_path(APPEND gxsharedir pixmaps OUTPUT_VARIABLE GX_PIXMAPS_DIR)
+cmake_path(APPEND gxsharedir metainfo OUTPUT_VARIABLE GX_METAINFO_DIR)
+
 # TODO use system version or FFMPEG version first
 add_library(gx_ZITA_CONVOLVER STATIC)
 add_library(gx::ZITA_CONVOLVER ALIAS gx_ZITA_CONVOLVER)
@@ -83,3 +94,26 @@ add_subdirectory(libgxwmm)
 
 add_subdirectory(src/faust)
 add_subdirectory(src/gx_head)
+
+install(FILES 
+"factorysettings/dirlist.js"
+"factorysettings/Musiclab.gx"
+"factorysettings/univibe"
+"factorysettings/univibe_mono"
+"factorysettings/flanger_mono_gx"
+"factorysettings/jconv"
+"factorysettings/mbc"
+"factorysettings/mbcs"
+"factorysettings/graphiceq"
+"factorysettings/jconv_mono" DESTINATION ${GX_FACTORY_DIR})
+
+# "greathall.wav" is referenced in the source (keep in sync when changing)
+install(FILES "./IR/greathall.wav" DESTINATION ${GX_SOUND_DIR})
+
+file(GLOB SOUND_BPB_FILES "IR/BestPlugins_Bands/*")
+install(FILES ${SOUND_BPB_FILES} DESTINATION ${GX_SOUND_BPB_DIR})
+
+file(GLOB SOUND_BPA_FILES "IR/BestPlugins_Amps/*")
+install(FILES ${SOUND_BPA_FILES} DESTINATION ${GX_SOUND_BPA_DIR})
+
+install(FILES "org.guitarix.guitarix.metainfo.xml" DESTINATION ${GX_METAINFO_DIR})

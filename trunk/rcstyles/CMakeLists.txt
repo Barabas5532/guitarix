@@ -191,3 +191,6 @@ endfunction()
 
 setup_scss("${scss_theme_files}")
 setup_scss("${scss_additional_files}")
+
+# TODO: skins are not working
+install(FILES ${gxstyle_files} DESTINATION share/gx_head/skins)
